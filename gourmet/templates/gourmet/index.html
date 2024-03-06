@@ -1,0 +1,50 @@
+{% extends "./base.html" %}
+{% block content %}
+<div class="text-center bg-light p-3 p-sm-5 mb-4 rounded">
+	<h1 class="display-4 mb-4">グルメアプリ</h1>
+	<div class="lead border-top">
+		<div class="container mt-4">
+			現在地付近にあるグルメアプリを検索してくれるアプリです。<br>
+			半径をプルダウンから選択し、「現在地を取得する」をクリックするとレストラン一覧が表示されます。<br>
+			店名をクリックすると店の詳細を表示します。
+		</div>
+	</div>
+</div>
+
+<div class="col-md-4">
+	<div class="mb-4">
+		<label for="amountDropdown" class="form-label">半径</label>
+		<select class="form-select" id="amountDropdown">
+			<option value="500">500m</option>
+			<option value="1000">1000m</option>
+			<option value="2000">2000m</option>
+		</select>
+	</div>
+</div>
+<div class="col-md-8 mb-4">
+	<button id="GeoButton" class="btn btn-outline-primary btn-lg">
+		レストランを表示する
+	</button>
+</div>
+<div class="container">
+	{% for restaurant in restaurants %}
+	<div class="card mb-3">
+		<div class="row g-0">
+			<div class="col-md-3">
+				<div class="ratio ratio-4x3 mx-0">
+					<img src="{{ restaurant.photo.pc.m }}" alt="{{ restaurant.name }}" class="img-fluid rounded-start">
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="card-body">
+					<h5 class="card-title"><a href="{% url 'gourmet:detail' restaurant.id %}">{{ restaurant.name }}</a></h5>
+					<p class="card-text">アクセス:{{ restaurant.access }}</p>
+					<p class="card-text"><small class="text-body-secondary">営業日: {{ restaurant.open }}</small></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}
